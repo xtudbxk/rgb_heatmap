@@ -24,6 +24,10 @@ origin image:
 
 ![origin image](img/test.png)
 
+origin heatmap:
+
+![heatmap](img/heatmap.png)
+
 heatmap with color:
 
 ![heatmap1](img/heatmap1.png)
