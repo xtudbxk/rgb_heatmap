@@ -36,11 +36,10 @@ def heatmap_with_color(heatmap): # shape: [h,w], value range [0,255]
     heatmap = imgco.label2rgb(heatmap,colors=colors)
     return 255*heatmap
 
-def heatmap_with_img(img,heatmap,scale=True):
-    if scale is True:
-        heatmap_max = np.max(heatmap)
-        heatmap_min = np.min(heatmap)
-        heatmap = (heatmap-heatmap_min)/(heatmap_max-heatmap_min)
+def heatmap_with_img(img,heatmap):
+    heatmap_max = np.max(heatmap)
+    heatmap_min = np.min(heatmap)
+    heatmap = (heatmap-heatmap_min)/(heatmap_max-heatmap_min)
     heatmap_rgb = heatmap_with_color((255*heatmap).astype(np.uint8))
     if len(img.shape) >= 3:
         mixed = img*np.expand_dims(1-heatmap,axis=2)+heatmap_rgb*np.expand_dims(heatmap,axis=2)
@@ -50,7 +49,7 @@ def heatmap_with_img(img,heatmap,scale=True):
 
 if __name__ == "__main__":
     img = imgio.imread(sys.argv[1])
-    heatmap = np.load(sys.argv[2])
+    heatmap = imgio.imread(sys.argv[2])
     heatmap1 =  heatmap_with_color(heatmap)
     heatmap2 = heatmap_with_img(img,heatmap)
     imgio.imsave("%s/heatmap1.png"%sys.argv[3],heatmap1/255.0)
